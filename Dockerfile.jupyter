@@ -1,0 +1,16 @@
+FROM jupyter/scipy-notebook:latest
+
+USER root
+
+# Install system dependencies for Thai font support and crcmod compilation
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    fonts-thai-tlwg \
+    gcc \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+USER ${NB_UID}
+
+# Install Python packages
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt

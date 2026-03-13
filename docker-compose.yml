@@ -20,10 +20,31 @@ services:
     image: dpage/pgadmin4:latest
     container_name: icp_training_pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@training.local
+      PGADMIN_DEFAULT_EMAIL: admin@training.com
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    container_name: icp_training_jupyter
+    environment:
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:-training}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: icp_training
+      DB_USER: icp_user
+      DB_PASSWORD: training_password
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/notebooks
+      - ./resources:/home/jovyan/resources
     depends_on:
       postgres:
         condition: service_healthy
