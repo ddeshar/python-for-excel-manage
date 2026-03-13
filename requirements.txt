@@ -1,0 +1,24 @@
+# === Excel & Data ===
+openpyxl
+xlrd
+pandas
+numpy
+matplotlib
+plotly
+requests
+
+# === Database ===
+python-dotenv
+sqlalchemy
+psycopg2-binary
+
+# === Office Tools (NB 21) ===
+pypdf
+qrcode[pil]
+Pillow
+pythainlp
+python-docx
+crcmod
+
+# === YouTube Downloader (NB 20) ===
+yt-dlp
